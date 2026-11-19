@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Choong Jun Zac</title>
+
+<!--
+  ================================================================
+  QUICK GUIDE — everywhere you need to add your own stuff, search
+  for these tags (Ctrl/Cmd+F) and follow the instructions:
+
+    [[AVATAR IMAGE]]       — your profile photo/illustration
+    [[HERO BACKGROUND IMAGE]] — the image behind the whole hero section
+    [[GITHUB LINK]]        — your GitHub URL
+    [[LINKEDIN LINK]]      — your LinkedIn URL
+    [[EMAIL ADDRESS]]      — your email
+    [[RESUME LINK]]        — link/path to your resume file
+    [[NAV LINK]]           — where Projects/Experience/Events should point
+    [[PROJECT IMAGE 1-4]]  — screenshots for each project card
+    [[PROJECT LINK 1-4]]   — live URL / repo for each project card
+                             (also update the title, description, and tags)
+  ================================================================
+-->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --bg:#ffffff;
+    --nav-bg:#fbfbfb;
+    --border:#e9e9ec;
+    --text-primary:#18181b;
+    --text-secondary:#71717a;
+    --text-muted:#a1a1a8;
+    --accent-blue:#1d9bf0;
+    --black:#18181b;
+    --on-black:#ffffff;
+    --badge-bg:#f6f6f7;
+    --laravel:#ff2d20;
+    --wordpress:#3583c4;
+    --postgres:#336791;
+    --radius:8px;
+  }
+
+  [data-theme="dark"]{
+    --bg:#101012;
+    --nav-bg:#141416;
+    --border:#27272a;
+    --text-primary:#f4f4f5;
+    --text-secondary:#a1a1aa;
+    --text-muted:#7a7a80;
+    --black:#f4f4f5;
+    --on-black:#101012;
+    --badge-bg:#1c1c1f;
+  }
+
+  *{ box-sizing:border-box; }
+
+  html,body{
+    margin:0;
+    padding:0;
+    background:var(--bg);
+    color:var(--text-primary);
+    font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+    -webkit-font-smoothing:antialiased;
+    transition:background-color .35s ease,color .35s ease;
+    overflow-x:hidden;
+    overscroll-behavior-y: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  a{ text-decoration:none; }
+
+  /* ---------- ANIMATIONS ---------- */
+  @keyframes fadeSlideUp{
+    from{ opacity:0; transform:translateY(14px); }
+    to{ opacity:1; transform:translateY(0); }
+  }
+  @keyframes popIn{
+    0%{ opacity:0; transform:scale(.7) translateY(10px); }
+    70%{ opacity:1; transform:scale(1.06) translateY(-2px); }
+    100%{ opacity:1; transform:scale(1) translateY(0); }
+  }
+  @keyframes badgePop{
+    0%{ opacity:0; transform:scale(0) rotate(-25deg); }
+    60%{ opacity:1; transform:scale(1.3) rotate(8deg); }
+    100%{ opacity:1; transform:scale(1) rotate(0deg); }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation:none !important; transition:none !important; }
+  }
+
+  /* ---------- NAV ---------- */
+  .navbar{
+    position: absolute; 
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 10; 
+    background: transparent; 
+    border-bottom: none; 
+    transition:background-color .35s ease,border-color .35s ease;
+    opacity:0;
+    animation:fadeSlideUp .5s ease forwards;
+  }
+  .nav-inner{
+    max-width:720px;
+    margin:0 auto;
+    padding:18px 24px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+  }
+  .logo{
+    font-weight:700;
+    font-size:14px;
+    letter-spacing:.03em;
+    color:var(--text-primary);
+  }
+  .nav-links{
+    display:flex;
+    align-items:center;
+    gap:26px;
+  }
+  .nav-links a{
+    position:relative;
+    font-size:14px;
+    color:var(--text-secondary);
+    transition:color .15s ease;
+    padding-bottom:2px;
+  }
+  .nav-links a::after{
+    content:'';
+    position:absolute;
+    left:0;
+    bottom:-2px;
+    width:0;
+    height:1px;
+    background:currentColor;
+    transition:width .25s ease;
+  }
+  .nav-links a:hover{ color:var(--text-primary); }
+  .nav-links a:hover::after{ width:100%; }
+
+  .theme-toggle{
+    position:relative;
+    width:30px;
+    height:30px;
+    border-radius:50%;
+    border:1px solid var(--border);
+    background:transparent;
+    color:var(--text-secondary);
+    cursor:pointer;
+    padding:0;
+    transition:color .2s ease,border-color .2s ease,transform .3s ease;
+  }
+  .theme-toggle:hover{ color:var(--text-primary); border-color:var(--text-muted); transform:rotate(20deg); }
+  .theme-toggle svg{
+    position:absolute;
+    top:50%;
+    left:50%;
+    width:15px;
+    height:15px;
+    transform:translate(-50%,-50%) rotate(0deg) scale(1);
+    opacity:1;
+    transition:transform .45s cubic-bezier(.34,1.56,.64,1),opacity .3s ease;
+  }
+  .theme-toggle .moon-icon{
+    opacity:0;
+    transform:translate(-50%,-50%) rotate(-90deg) scale(.4);
+  }
+  [data-theme="dark"] .theme-toggle .sun-icon{
+    opacity:0;
+    transform:translate(-50%,-50%) rotate(90deg) scale(.4);
+  }
+  [data-theme="dark"] .theme-toggle .moon-icon{
+    opacity:1;
+    transform:translate(-50%,-50%) rotate(0deg) scale(1);
+  }
+
+  /* ---------- MAIN / HERO BACKGROUND ---------- */
+  main{
+    position:relative;
+    max-width:720px;
+    margin:0 auto;
+    padding:72px 24px 8px;
+    z-index:0;
+    min-height:100vh; 
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:flex-start;
+  }
+
+  .hero-bg{
+    position:absolute;
+    top:0;
+    bottom:0;
+    left:50%;
+    width:100vw;
+    transform:translateX(-50%);
+    z-index:-1;
+    overflow:hidden;
+  }
+  .hero-bg img{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    object-position:center 90%;
+    display:block;
+    opacity:1;
+    transition:opacity .35s ease;
+  }
+  .hero-bg .hero-img-dark{ opacity:0; }
+  [data-theme="dark"] .hero-bg .hero-img-light{ opacity:0; }
+  [data-theme="dark"] .hero-bg .hero-img-dark{ opacity:1; }
+  
+  .hero-fade{
+    position:absolute;
+    inset:0;
+    background-color:var(--bg);
+    -webkit-mask-image:linear-gradient(to bottom, rgba(0,0,0,.4) 0%, rgba(0,0,0,.55) 35%, rgba(0,0,0,.85) 65%, rgba(0,0,0,1) 88%);
+    mask-image:linear-gradient(to bottom, rgba(0,0,0,.4) 0%, rgba(0,0,0,.55) 35%, rgba(0,0,0,.85) 65%, rgba(0,0,0,1) 88%);
+    transition:background-color .35s ease;
+  }
+
+  .profile-header{
+    display:flex;
+    align-items:center;
+    gap:22px;
+    margin-bottom:36px;
+    opacity:0;
+    animation:fadeSlideUp .6s ease forwards;
+    animation-delay:.15s;
+  }
+
+  .avatar-wrap{
+    width:96px;
+    height:96px;
+    min-width:96px;
+    border-radius:50%;
+    overflow:hidden;
+    background:var(--badge-bg);
+    border:1px solid var(--border);
+    transition:border-color .35s ease,background-color .35s ease;
+  }
+  .avatar-wrap img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
+  }
+
+  .profile-info h1{
+    margin:0 0 10px;
+    font-size:23px;
+    font-weight:600;
+    display:flex;
+    align-items:center;
+    gap:6px;
+  }
+
+  .social-icons{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    color:var(--text-secondary);
+  }
+  .social-icons a{
+    color:inherit;
+    display:flex;
+    transition:color .15s ease,transform .15s ease;
+  }
+  .social-icons a:hover{ color:var(--text-primary); transform:translateY(-3px); }
+  .social-icons svg{ width:17px; height:17px; }
+
+  .tagline{
+    font-size:29px;
+    line-height:1.35;
+    font-weight:600;
+    margin:0 0 18px;
+    letter-spacing:-.01em;
+    opacity:0;
+    animation:fadeSlideUp .6s ease forwards;
+    animation-delay:.3s;
+  }
+  .tagline .light{
+    font-weight:400;
+    color:var(--text-secondary);
+  }
+
+  .bio{
+    font-size:15px;
+    line-height:1.95;
+    color:var(--text-muted);
+    max-width:620px;
+    margin:0 0 34px;
+    opacity:0;
+    animation:fadeSlideUp .6s ease forwards;
+    animation-delay:.42s;
+  }
+
+  .tech-badge{
+    display:inline-flex;
+    align-items:center;
+    gap:5px;
+    background:var(--badge-bg);
+    border:1px solid var(--border);
+    padding:2px 10px 2px 7px;
+    border-radius:20px;
+    font-size:13px;
+    color:var(--text-secondary);
+    vertical-align:middle;
+    margin:0 2px;
+    white-space:nowrap;
+    transition:transform .18s ease,box-shadow .18s ease,background-color .35s ease,border-color .35s ease;
+  }
+  .tech-badge:hover{
+    transform:translateY(-2px);
+    box-shadow:0 6px 14px rgba(0,0,0,.1);
+  }
+  .tech-badge .dot{
+    width:9px;
+    height:9px;
+    border-radius:50%;
+    flex-shrink:0;
+  }
+  .dot.laravel{ background:var(--laravel); }
+  .dot.wordpress{ background:var(--wordpress); }
+  .dot.postgres{ background:var(--postgres); }
+
+  .resume-btn{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    background:var(--black);
+    color:var(--on-black);
+    padding:11px 20px;
+    border-radius:var(--radius);
+    font-size:14px;
+    font-weight:500;
+    transition:transform .2s ease,box-shadow .2s ease,background-color .35s ease;
+    opacity:0;
+    animation:fadeSlideUp .6s ease forwards;
+    animation-delay:.54s;
+  }
+  .resume-btn:hover{
+    transform:translateY(-2px);
+    box-shadow:0 8px 20px rgba(0,0,0,.18);
+  }
+  .resume-btn svg{ transition:transform .2s ease; }
+  .resume-btn:hover svg{ transform:translateX(3px); }
+
+  /* ---------- PROJECTS ---------- */
+  .section{
+    border-top:none;    
+    transition:border-color .35s ease;
+  }
+  .section-inner{
+    max-width:720px;
+    margin:0 auto;
+    padding:56px 24px 64px;
+  }
+  .section-header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:22px;
+  }
+  .section-label{
+    margin:0;
+    font-size:13px;
+    font-weight:600;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    color:var(--text-secondary);
+  }
+  .section-link{
+    display:inline-flex;
+    align-items:center;
+    gap:4px;
+    font-size:13px;
+    color:var(--text-secondary);
+    transition:color .15s ease,gap .15s ease;
+  }
+  .section-link:hover{ color:var(--text-primary); gap:7px; }
+  .section-link svg{ width:13px; height:13px; }
+
+  .project-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:18px;
+  }
+  .project-card{
+    display:block;
+    border:1px solid var(--border);
+    border-radius:14px;
+    overflow:hidden;
+    background:var(--nav-bg);
+    opacity:0;
+    transform:translateY(16px);
+    transition:transform .35s ease,box-shadow .35s ease,border-color .35s ease,background-color .35s ease,opacity .5s ease;
+  }
+  .project-card.in-view{ opacity:1; transform:translateY(0); }
+  .project-card:hover{
+    transform:translateY(-4px);
+    box-shadow:0 14px 28px rgba(0,0,0,.12);
+  }
+  .project-thumb{
+    position: relative; 
+    aspect-ratio:16/10;
+    overflow:hidden;
+    background:var(--badge-bg);
+  }
+  .project-thumb img{
+    position: absolute; 
+    inset: 0;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    object-position:top;
+    display:block;
+    transition:transform .4s ease, opacity .35s ease;
+  }
+  
+  .project-thumb .project-img-dark { 
+    opacity: 0; 
+  }
+  
+  [data-theme="dark"] .project-thumb .project-img-light { 
+    opacity: 0; 
+  }
+  [data-theme="dark"] .project-thumb .project-img-dark { 
+    opacity: 1; 
+  }
+  
+  .project-card:hover .project-thumb img{ transform:scale(1.06); }
+
+  .project-body{ padding:16px 18px 18px; }
+  .project-title{
+    margin:0 0 6px;
+    font-size:15px;
+    font-weight:600;
+    color:var(--text-primary);
+  }
+  .project-desc{
+    margin:0 0 12px;
+    font-size:13px;
+    line-height:1.6;
+    color:var(--text-muted);
+  }
+  .project-tags{ display:flex; flex-wrap:wrap; gap:6px; }
+  .project-tags .tech-badge{ font-size:12px; padding:2px 9px 2px 6px; }
+  .dot.neutral{ background:var(--text-muted); }
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width:520px){
+    .profile-header{ gap:16px; }
+    .avatar-wrap{ width:76px; height:76px; min-width:76px; }
+    .tagline{ font-size:24px; }
+    .nav-links{ gap:16px; }
+    .nav-links a{ font-size:13px; }
+    .project-grid{ grid-template-columns:1fr; }
+  }
+
+  :focus-visible{
+    outline:2px solid var(--accent-blue);
+    outline-offset:2px;
+  }
+</style>
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="nav-inner">
+    <div class="logo"></div>
+    <div class="nav-links">
+      <a href="index.html#projects">Projects</a>
+      <!--
+      <a href="experience.html">Experience</a>
+      <a href="events.html">Events</a>
+      -->
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+        <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+        <svg class="moon-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79z"/></svg>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<main>
+<div class="hero-bg" aria-hidden="true">
+  <img class="hero-img-light" src="light.png" alt="">
+  <img class="hero-img-dark" src="dark.png" alt="">
+  <div class="hero-fade"></div>
+</div>
+
+  <div class="profile-header">
+    <div class="avatar-wrap">
+      <img src="c1f5b18e22ad439eb3c92cb60083ec14.jpg" alt="Choong Jun Zac">
+    </div>
+    <div class="profile-info">
+      <h1>
+        Choong Jun Zac
+      </h1>
+      <div class="social-icons">
+        <a href="https://github.com/ishtardsama" aria-label="GitHub" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.73.5.5 5.73.5 12c0 5.08 3.29 9.39 7.86 10.91.57.1.78-.25.78-.55 0-.27-.01-1-.02-1.96-3.2.7-3.88-1.54-3.88-1.54-.52-1.33-1.28-1.69-1.28-1.69-1.04-.71.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.76 2.7 1.25 3.36.96.1-.75.4-1.25.73-1.54-2.55-.29-5.23-1.28-5.23-5.69 0-1.26.45-2.29 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.8 0c2.2-1.49 3.17-1.18 3.17-1.18.64 1.59.24 2.76.12 3.05.74.8 1.19 1.83 1.19 3.09 0 4.42-2.69 5.4-5.25 5.68.41.36.78 1.07.78 2.16 0 1.56-.01 2.82-.01 3.2 0 .31.21.66.79.55A10.52 10.52 0 0 0 23.5 12C23.5 5.73 18.27.5 12 .5z"/></svg>
+        </a>
+        <a href="https://linkedin.com/in/choongjunzac" aria-label="LinkedIn" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.38-1.85 3.61 0 4.28 2.38 4.28 5.47v6.27zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45z"/></svg>
+        </a>
+        <a href="mailto:choongjunzac@gmail.com" aria-label="Email">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 6-10 7L2 6"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <h2 class="tagline">Software Engineer<span class="light"> - Freelance Web Design</span></h2>
+
+  <p class="bio">
+    Second year CS student based in Malaysia. <br>
+    Feel free to reach out to offer feedback regarding my projects or just to chat.
+  </p>
+
+  <a class="resume-btn" href="Resume.pdf" target="_blank" rel="noopener">
+    View Resume
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+  </a>
+</main>
+
+<section id="projects" class="section">
+  <div class="section-inner">
+    <div class="section-header">
+      <h3 class="section-label">Projects</h3>
+      <a class="section-link" href="#">
+        View all
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+    </div>
+
+    <div class="project-grid">
+
+      <!-- PROJECT CARD 1 -->
+      <a class="project-card" href="https://github.com/ishtardsama/marineSim" target="_blank" rel="noopener">
+        <div class="project-thumb">
+          <!-- Shown in Light Mode (Black Image) -->
+          <img class="project-img-light" src="MarineSim logo.jpg" alt="MarineSim Logo" loading="lazy">
+          <!-- Shown in Dark Mode (White Image) -->
+          <img class="project-img-dark" src="MarineSim logo.jpg" alt="MarineSim Logo" loading="lazy">
+        </div>
+        <div class="project-body">
+          <h4 class="project-title">MarineSim</h4>
+          <p class="project-desc">A marine ecosystem simulator built in Python. This engine models emergent natural selection, bioenergetics, and genetic mutation.</p>
+          <div class="project-tags">
+            <span class="tech-badge"><span class="dot postgres"></span>Python</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- PROJECT CARD 2 -->
+      <a class="project-card" href="https://github.com/MengsChill/POLE" target="_blank" rel="noopener">
+        <div class="project-thumb">
+          <img class="project-img-light" src="POLE.png" alt="POLE screenshot" loading="lazy">
+          <img class="project-img-dark" src="POLE.png" alt="POLE screenshot" loading="lazy">
+        </div>
+        <div class="project-body">
+          <h4 class="project-title">POLE</h4>
+          <p class="project-desc">An AI-powered smart walking stick designed to empower the visually impaired with obstacle detection and intelligent navigation.</p>
+          <div class="project-tags">
+            <span class="tech-badge"><span class="dot laravel"></span>C++</span>
+            <span class="tech-badge"><span class="dot neutral"></span>ESP32</span>
+          </div>
+        </div>
+      </a>
+
+ 
+
+    </div>
+  </div>
+</section>
+
+<script>
+  // Reveal project cards as they scroll into view.
+  const revealTargets = document.querySelectorAll('.project-card');
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('in-view'), i * 90);
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  revealTargets.forEach(el => revealObserver.observe(el));
+</script>
+
+<script>
+  const toggle = document.getElementById('themeToggle');
+  
+  // Check local storage so theme persists across page loads
+  const savedTheme = localStorage.getItem('theme');
+  if(savedTheme) { document.documentElement.setAttribute('data-theme', savedTheme); }
+
+  toggle.addEventListener('click', () => {
+    const root = document.documentElement;
+    const isDark = root.getAttribute('data-theme') === 'dark';
+    const newTheme = isDark ? 'light' : 'dark';
+    root.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
+  });
+</script>
+
+</body>
+</html>
