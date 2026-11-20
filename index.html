@@ -39,9 +39,8 @@
     --black:#18181b;
     --on-black:#ffffff;
     --badge-bg:#f6f6f7;
-    --laravel:#ff2d20;
-    --wordpress:#3583c4;
-    --postgres:#336791;
+    --cpp:#ff2d20;
+    --python:#336791;
     --radius:8px;
   }
 
@@ -332,9 +331,8 @@
     border-radius:50%;
     flex-shrink:0;
   }
-  .dot.laravel{ background:var(--laravel); }
-  .dot.wordpress{ background:var(--wordpress); }
-  .dot.postgres{ background:var(--postgres); }
+  .dot.cpp{ background:var(--cpp); }
+  .dot.python{ background:var(--python); }
 
   .resume-btn{
     display:inline-flex;
@@ -561,7 +559,7 @@
           <h4 class="project-title">MarineSim</h4>
           <p class="project-desc">A marine ecosystem simulator built in Python. This engine models emergent natural selection, bioenergetics, and genetic mutation.</p>
           <div class="project-tags">
-            <span class="tech-badge"><span class="dot postgres"></span>Python</span>
+            <span class="tech-badge"><span class="dot python"></span>Python</span>
           </div>
         </div>
       </a>
@@ -576,7 +574,7 @@
           <h4 class="project-title">POLE</h4>
           <p class="project-desc">An AI-powered smart walking stick designed to empower the visually impaired with obstacle detection and intelligent navigation.</p>
           <div class="project-tags">
-            <span class="tech-badge"><span class="dot laravel"></span>C++</span>
+            <span class="tech-badge"><span class="dot cpp"></span>C++</span>
             <span class="tech-badge"><span class="dot neutral"></span>ESP32</span>
           </div>
         </div>
@@ -589,7 +587,6 @@
 </section>
 
 <script>
-  // Reveal project cards as they scroll into view.
   const revealTargets = document.querySelectorAll('.project-card');
   const revealObserver = new IntersectionObserver((entries) => {
     entries.forEach((entry, i) => {
@@ -605,7 +602,6 @@
 <script>
   const toggle = document.getElementById('themeToggle');
   
-  // Check local storage so theme persists across page loads
   const savedTheme = localStorage.getItem('theme');
   if(savedTheme) { document.documentElement.setAttribute('data-theme', savedTheme); }
 
